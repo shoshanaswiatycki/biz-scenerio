@@ -5,7 +5,7 @@ Our Department processes applications for the Supplemental Nutritional Assistanc
 We are looking to implement an automated system to evaluate the eligibility of the applicants. 
 
 We collect the following information from each application:
-    Family name, Phone number, Address, Family size, Earned income, Unearned income, Daycare expenses, Shelter Expenses and Standardized utility expense. 
+    Family name, Phone number, Address, Family size, Earned income, Unearned income, Daycare expenses, Shelter expenses and Standardized utility expense. 
 We also refer to some other fixed information based on the family size, including:
     Gross income limit, Standard deduction and a Maximum benefit amount. (this information is provided in the charts below).
 
