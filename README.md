@@ -1,1 +1,1 @@
-# biz-scenerio
+# biz-scenario
