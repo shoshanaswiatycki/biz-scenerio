@@ -39,6 +39,9 @@ Answer:   Though most families have at least a bit of income, we do occaisionlly
           Occaisionally we have families who do not have a shelter expense, either because they are living rent free or because someone else is paying it for them.
           Yes some families do not pay for their utilities on their own.
 
+Question: Can the net income before or after shelter be a negative number?
+Answer:   No. If their expenses exceed their income enough that it would result in a negative number we count it as 0.
+
 Question: Which places do you accept applications from?
 Answer:   Our office is actually designated specifically towards residents of lakewood NJ, it is therefore not necessary to store the applicant's town, state and zip code
 
