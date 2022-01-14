@@ -21,19 +21,17 @@ go
 
 update Family set NetIncomeAfterShelter = case when NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2)) > 0 or  NetIncomeBeforeShelter - StandardisedUtilityExpenses - ShelterExpenses > 0
                                             then case
-                                                when  (StandardisedUtilityExpenses + ShelterExpenses)/ NetIncomeBeforeShelter > 0.5
+                                                when  (StandardisedUtilityExpenses + ShelterExpenses) > NetIncomeBeforeShelter/2
                                                 then  NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2))
                                                 else  NetIncomeBeforeShelter - StandardisedUtilityExpenses - ShelterExpenses  
                                                 end
                                             else 0 
                                         end
-GO
+
 
 update Family set ThirtyPercentNetIncomeAfterShelter = NetIncomeAfterShelter * 0.3
 
 update Family set BenefitAmount = case when MaximumBenefit - ThirtyPercentNetIncomeAfterShelter > 0 then MaximumBenefit - ThirtyPercentNetIncomeAfterShelter else 0 end
    
-update Family set Eligible = case when TotalIncome  < MonthlyIncomeLimit and BenefitAmount > 0 then 1 else 0 end
+update Family set Eligible = case when TotalIncomeExcludeExpenses  < MonthlyIncomeLimit and BenefitAmount > 0 then 1 else 0 end
 
-select *
-from Family

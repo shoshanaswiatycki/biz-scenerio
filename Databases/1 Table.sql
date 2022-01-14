@@ -32,7 +32,7 @@ create table dbo.Family(
                             when 14 then 11086 
                             when 15 then 11786 
                             when 16 then 12486 
-                            when 17 then 13186 end,
+                            when 17 then 13186 end persisted,
     MaximumBenefit as case FamilySize 
                             when 1 then 250  
                             when 2   then 459  
@@ -50,14 +50,14 @@ create table dbo.Family(
                             when 14  then 263  
                             when 15  then 282  
                             when 16  then 281  
-                            when 17  then 299  end,
+                            when 17  then 299  end persisted,
     StandardDeduction as case 
                     when FamilySize between 1 and 3 then 177
                     when FamilySize = 4 then 184
                     when FamilySize  = 5 then 215
-                    else 246 end,
-    TotalIncome as EarnedIncome + UnEarnedIncome - DaycareExpenses - ShelterExpenses - StandardisedUtilityExpenses,
-    GrossIncome as (EarnedIncome * 0.8) + UnEarnedIncome,
+                    else 246 end persisted,
+    TotalIncomeExcludeExpenses as EarnedIncome + UnEarnedIncome persisted,
+    GrossIncome as (EarnedIncome * 0.8) + UnEarnedIncome  persisted,
     NetIncomeBeforeShelter as case when ((EarnedIncome * 0.8) + UnEarnedIncome) -  case 
                     when FamilySize between 1 and 3 then 177
                     when FamilySize = 4 then 184
@@ -68,11 +68,13 @@ create table dbo.Family(
                     when FamilySize = 4 then 184
                     when FamilySize  = 5 then 215
                     else 246 end - DaycareExpenses
-                    else 0 end,
-    NetIncomeAfterShelter int null,
-    ThirtyPercentNetIncomeAfterShelter int null,
-    BenefitAmount int null,
-    Eligible bit null
+                    else 0 end persisted,
+    NetIncomeAfterShelter decimal(7,2) not null default 0,
+    ThirtyPercentNetIncomeAfterShelter decimal(7,2) not null default 0,
+    BenefitAmount decimal(5,2) not null default 0,
+    Eligible bit not null default 0,
+    constraint ck_Family_NetIncomeBeforeShelter_more_than_equal_NetIncomeAfterShelter check(NetIncomeBeforeShelter >= NetIncomeAfterShelter),
+    constraint ck_Family_GrossIncome_more_than_equal_NetIncomeBeforeShelter check(GrossIncome >= NetIncomeBeforeShelter)
 
 )
 go
