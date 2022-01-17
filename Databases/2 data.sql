@@ -19,11 +19,12 @@ union select 'Biden', '8489989876', '13 Icantthink Lane', 13, 9950, 100, 0, 1800
 union select 'Cohen', '7327654321', '14 Winya Place', 9, 6000, 1300, 400, 275, 369
 go
 
-update Family set NetIncomeAfterShelter = case when NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2)) > 0 or  NetIncomeBeforeShelter - StandardisedUtilityExpenses - ShelterExpenses > 0
+update Family set NetIncomeAfterShelter =  case 
+                                            when NetIncomeBeforeShelter  > 0
                                             then case
-                                                when  (StandardisedUtilityExpenses + ShelterExpenses) > NetIncomeBeforeShelter/2
+                                                when  (StandardisedUtilityExpenses + ShelterExpenses) > NetIncomeBeforeShelter/2 and ( NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2))) > 0
                                                 then  NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2))
-                                                else  NetIncomeBeforeShelter - StandardisedUtilityExpenses - ShelterExpenses  
+                                                else NetIncomeBeforeShelter
                                                 end
                                             else 0 
                                         end
