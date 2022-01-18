@@ -34,5 +34,5 @@ update Family set ThirtyPercentNetIncomeAfterShelter = NetIncomeAfterShelter * 0
 
 update Family set BenefitAmount = case when MaximumBenefit - ThirtyPercentNetIncomeAfterShelter > 0 then MaximumBenefit - ThirtyPercentNetIncomeAfterShelter else 0 end
    
-update Family set Eligible = case when TotalIncomeExcludeExpenses  < MonthlyIncomeLimit and BenefitAmount > 0 then 1 else 0 end
+update Family set Eligible = case when TotalIncomeExcludeExpenses  <= MonthlyIncomeLimit and BenefitAmount > 0 then 1 else 0 end
 
