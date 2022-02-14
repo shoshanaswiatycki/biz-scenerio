@@ -21,9 +21,15 @@ go
 
 update Family set NetIncomeAfterShelter =  case 
                                             when NetIncomeBeforeShelter  > 0
-                                            then case
-                                                when  (StandardisedUtilityExpenses + ShelterExpenses) > NetIncomeBeforeShelter/2 and ( NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2))) > 0
-                                                then  NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2))
+                                            then 
+                                                case
+                                                when  (StandardisedUtilityExpenses + ShelterExpenses) > NetIncomeBeforeShelter/2
+                                                then 
+                                                    case 
+                                                        when  ( NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2))) > 0 
+                                                        then  NetIncomeBeforeShelter -((StandardisedUtilityExpenses  + ShelterExpenses) - (NetIncomeBeforeShelter/2))
+                                                        else 0
+                                                    end
                                                 else NetIncomeBeforeShelter
                                                 end
                                             else 0 
